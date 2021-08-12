@@ -1,0 +1,175 @@
+1- Créer un serveur Express simple
+
+Ouvrir un nouveau terminal
+Créer un dossier backend
+npm init (Initialisation du projet)
+Créer server.js à la racine de backend
+Remplacer index.js par server.js dans package.json, ligne 5
+
+Saisir le code du server dans server.js
+<!--
+const http = require('http');
+const server = http.createServer((req, res) => {
+    res.end('Voilà la réponse du serveur !');
+});
+server.listen(process.env.PORT || 3000);
+-->
+
+npm install -g nodemon
+nodemon serve (Le serveur tourne sur localhost:3000)
+npm install --save express
+
+Créer app.js pour y placer l'application express (Framework
+simplifiant le développement des API Node)
+<!-- 
+const express = require('express');
+const app = express();
+app.use((req, res) => {
+    res.json({ message: 'Votre requête a bien été reçue !' });
+});
+module.exports = app; 
+-->
+
+Modifier server.js
+<!--
+const http = require('http');
+const app = require('./app');
+const normalizePort = val => {
+  const port = parseInt(val, 10);
+  if (isNaN(port)) {
+    return val;
+  }
+  if (port >= 0) {
+    return port;
+  }
+  return false;
+};
+const port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+const errorHandler = error => {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+  const address = server.address();
+  const bind = typeof address === 'string' ? 'pipe ' + address : 'port: ' + port;
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges.');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use.');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+};
+const server = http.createServer(app);
+server.on('error', errorHandler);
+server.on('listening', () => {
+  const address = server.address();
+  const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
+  console.log('Listening on ' + bind);
+});
+server.listen(port);
+-->
+
+Créer une route get dans app.js (Remplace le app.use)
+<!--    
+app.use('/api/stuff', (req, res, next) => {
+  const stuff = [
+    {
+      _id: 'oeihfzeoi',
+      title: 'Mon premier objet',
+      description: 'Les infos de mon premier objet',
+      imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
+      price: 4900,
+      userId: 'qsomihvqios',
+    },
+    {
+      _id: 'oeihfzeomoihi',
+      title: 'Mon deuxième objet',
+      description: 'Les infos de mon deuxième objet',
+      imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
+      price: 2900,
+      userId: 'qsomihvqios',
+    },
+  ];
+  res.status(200).json(stuff);
+});
+-->
+
+Gérer les erreurs de CORS dans app.js (avant les routes)
+
+<!--    
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
+-->
+
+Installer body parser pour pouvoir extraire les objets json
+npm install --save body-parser
+Importer body parser dans app.js
+<!-- const bodyParser = require('body-parser'); -->
+Définir la fonction json de body parser comme middleware
+global
+<!-- 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+-->
+Dans app.js, mettre le middleware post avant le GET
+<!--
+app.post('/api/stuff', (req, res, next) => {
+  console.log(req.body);
+  res.status(201).json({
+    message: 'Objet créé !'
+  });
+});
+-->
+
+
+2. Faire une liaison avec mysql 
+
+npm install --save sequelize
+npm install --save mysql2
+npm install --save sequelize-cli 
+<!--   (Besoin d'une installation globale)  -->
+npm install -g sequelize-cli
+<!-- Initialisation de sequelize , création de config, models, migrations, seeders-->
+sequelize init
+Changer database, user, pwd dans config/config.json pour le mode développement
+<!--  Création de la BDD -->
+sequelize db:create
+<!--  Création des tables dans la BDD -->
+sequelize db:migrate
+<!-- Population des tables -->
+sequelize db:seed:all 
+
+3. Sécurité, inscriptions, uploads
+
+Créer un dossier controllers, un dossier routes, et un dossier images
+
+<!--  Protection Header -->
+npm install --save helmet
+<!-- Cryptage du mdp -->
+npm install --save bcrypt
+<!--  Gestion des tokens d'authntification -->
+npm install --save jsonwebtoken
+<!--  Upload d'images -->
+npm install --save multer
+
+
+
+
+
+
+FRONT 
+
+npm install vue
+npm install
+npm install vue-router
+npm install axios // Requetes
