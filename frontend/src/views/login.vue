@@ -1,14 +1,14 @@
 <template>
   <div>
-  <h1>login</h1>
+  <h1>S'authentifier</h1>
 
   <form class="login container" @submit.prevent="connexion">
     <div class="center box-login">
-      <input required v-model="login" type="email" placeholder="Identifiant" style="width:80%; font-size:20px; margin-bottom:30px;">
+      <input required v-model="login" type="email" placeholder="Email" style="width:80%; font-size:20px; margin-bottom:30px;">
       <br>
       <input required v-model="password" type="password" placeholder="Mot de passe" style="width:80%; font-size:20px; margin-bottom:80px;">
       <br>
-      <button type="submit" class="btn btn-dark">Me connecter</button>
+      <button type="submit" class="btn btn-dark btn-connect">Me connecter</button>
     </div>
   </form>
   </div>
@@ -47,5 +47,22 @@ name: "login",
 </script>
 
 <style scoped>
-
+  .login{
+    padding:30px;
+    border: 1px solid #ccc;
+    margin-bottom: 250px;
+  }
+  h1{
+    color:#000000;
+    margin-bottom: 50px;
+  }
+  input::placeholder{
+    color:#f57d20;
+    font-weight: bold;
+  }
+  .btn-connect{
+    background-color: #f57d20;
+    color:#ffffff;
+    font-weight: bold;
+  }
 </style>

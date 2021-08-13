@@ -1,16 +1,16 @@
 <template>
   <div>
-    <h1>register</h1>
+    <h1>S'inscrire</h1>
 
-    <form class="login" @submit.prevent="inscription">
-      <div class="center box-login">
-        <h1 style="color: #333; margin-bottom:80px;">Bienvenue</h1>
-        <input required v-model="username" type="text" placeholder="Username" style="width:80%; font-size:20px; margin-bottom:80px;">
+    <form class="register container" @submit.prevent="inscription">
+      <div class="center box-register">
+        <input required v-model="username" type="text" placeholder="Pseudo" style="width:80%; font-size:20px; margin-bottom:30px;">
         <br>
         <input required v-model="email" type="email" placeholder="E-mail" style="width:80%; font-size:20px; margin-bottom:30px;">
         <br>
         <input required v-model="password" type="password" placeholder="Mot de passe" style="width:80%; font-size:20px; margin-bottom:80px;">
-        <button type="submit" class="btn btn-dark">Inscription</button>
+        <br>
+        <button type="submit" class="btn btn-dark btn-connect">Inscription</button>
       </div>
     </form>
   </div>
@@ -43,5 +43,22 @@ export default {
 </script>
 
 <style scoped>
-
+  .register{
+    padding:30px;
+    border: 1px solid #ccc;
+    margin-bottom: 250px;
+  }
+  h1{
+    color:#000000;
+    margin-bottom: 50px;
+  }
+  input::placeholder{
+    color:#f57d20;
+    font-weight: bold;
+  }
+  .btn-connect{
+    background-color: #f57d20;
+    color:#ffffff;
+    font-weight: bold;
+  }
 </style>
